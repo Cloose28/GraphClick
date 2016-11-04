@@ -12,31 +12,35 @@ void printTriangles(std::vector<Triangle> vector) {
 int main() {
     int size = 5;
     int graph[][size] = {{0, 1, 0, 1, 1},
-                         {1, 0, 1, 0, 0},
-                         {0, 1, 0, 0, 0},
+                         {1, 0, 1, 1, 0},
+                         {0, 1, 1, 0, 0},
                          {1, 0, 0, 0, 1},
                          {1, 0, 0, 1, 0}};
 
-    int **a = new int *[size];
+
+    ListGraph listGraph(size);
+    int **adjacency = new int *[size];
     for (int i = 0; i < size; i++)
-        a[i] = new int[size];
+        adjacency[i] = new int[size];
 
     for (int i = 0; i < size; ++i) {
         for (int j = 0; j < size; ++j) {
-            a[i][j] = graph[i][j];
-        }
-    }
-    for (int i = 0; i < size; ++i) {
-        for (int j = 0; j < size; ++j) {
-            std::cout << a[i][j] << " ";
-        }
-        std::cout << "\n";
-    }
-    std::cout << "\n";
 
-    GraphAdjacency graphAdjacency(size, a);
+            int element = graph[i][j];
+            adjacency[i][j] = element;
+            if (element == 1) {
+                listGraph.addLink(i, j);
+            }
+        }
+    }
+
+    GraphAdjacency graphAdjacency(size, adjacency);
     const std::vector<Triangle> vector = graphAdjacency.getTriangles();
+    const std::vector<Triangle> vectorList = listGraph.getTriangles();
+    std::cout << "AdjacencyGraph\n";
     printTriangles(vector);
+    std::cout << "ListGraph\n";
+    printTriangles(vectorList);
     return 0;
 }
 

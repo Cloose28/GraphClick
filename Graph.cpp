@@ -53,3 +53,47 @@ private:
         return matrix[n1][n2] == 1;
     }
 };
+
+class ListGraph : public Graph {
+private:
+    struct ListLink {
+        int link;
+        ListLink *next;
+    };
+
+    ListLink** listLinks;
+public:
+    ListGraph(int n) : Graph(n) {
+        listLinks = new ListLink*[n];
+        for (int i = 0; i < n; ++i) {
+            ListLink *listLink = getEmptyLink();
+            listLinks[i] = listLink;
+        }
+    }
+
+    virtual bool isLink(int n1, int n2) override {
+        ListLink* link = listLinks[n1];
+        while (link->link != -1) {
+            if (link->link == n2) {
+                return true;
+            }
+            link = link->next;
+        }
+        return false;
+    }
+
+    void addLink(int n1, int n2) {
+        ListLink* link = listLinks[n1];
+        while (link->link != -1) {
+            link = link->next;
+        }
+        link->link = n2;
+        link->next = getEmptyLink();
+    }
+
+    ListLink* getEmptyLink() {
+        ListLink* nextEmpty = new ListLink;
+        nextEmpty->link = -1;
+        return nextEmpty;
+    }
+};
