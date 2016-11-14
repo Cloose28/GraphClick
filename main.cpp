@@ -4,8 +4,8 @@
 void printTriangles(std::vector<Triangle> vector) {
     for (int i = 0; i < vector.size(); ++i) {
         Triangle triangle = vector[i];
-        std::cout << "Triangle: " << triangle.onePoint << " " << triangle.twoPoint << " "
-                  << triangle.threePoint << "\n";
+        std::cout << "Triangle: " << triangle.onePoint + 1 << " " << triangle.twoPoint + 1 << " "
+                  << triangle.threePoint + 1 << "\n";
     }
 }
 
@@ -13,7 +13,7 @@ int main() {
     int size = 5;
     int graph[][size] = {{0, 1, 0, 1, 1},
                          {1, 0, 1, 1, 0},
-                         {0, 1, 1, 0, 0},
+                         {0, 1, 0, 0, 0},
                          {1, 0, 0, 0, 1},
                          {1, 0, 0, 1, 0}};
 
